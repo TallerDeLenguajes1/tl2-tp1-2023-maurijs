@@ -37,7 +37,11 @@ namespace EspacioPedidos
 
         public void CargarPedido(Pedido pedido)
         {
-            pedidos.Add(pedido);
+            if (!ContienePedido(pedido))
+            {
+                pedidos.Add(pedido);
+            }
+            Console.WriteLine("\nError: el cadete ya tiene cargado ese pedido");
         }
 
         public void EliminarPedido(Pedido pedido)
@@ -54,8 +58,8 @@ namespace EspacioPedidos
                     pedidos.Remove(pedido);
                     return;
                 }
-                
             }
+            Console.WriteLine("\nError: El cadete no posee ese pedido");
         }
         
         public bool ContienePedido(Pedido pedido)
@@ -77,6 +81,32 @@ namespace EspacioPedidos
                 }
             }
             return null;
+        }
+
+        public int CantEnviados()
+        {
+            int total = 0;
+            foreach (var pedido in pedidos)
+            {
+                if (pedido.Estado == Estado.Recibido)
+                {
+                    total++;
+                }
+            }
+            return total;
+        }
+
+        public float Ganancias()
+        {
+            float Ganancias = 0;
+            foreach (var pedido in pedidos)
+            {
+                if (pedido.Estado == Estado.Recibido)
+                {
+                    Ganancias =+ pedido.Monto;
+                }
+            }
+            return Ganancias;
         }
     }
 }

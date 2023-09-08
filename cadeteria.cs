@@ -10,12 +10,21 @@ namespace EspacioPedidos
         public string Telefono { get => telefono; set => telefono = value; }
         public List<Cadete> ListadoCadetes { get => listadoCadetes; set => listadoCadetes = value; }
 
+        //Constructores
         public Cadeteria(string nombre, string telefono)
         {
             this.nombre = nombre;
             this.telefono = telefono;
             listadoCadetes = new List<Cadete>();
         }
+        public Cadeteria(string nombre, string telefono, List<Cadete> listado)
+        {
+            this.nombre = nombre;
+            this.telefono = telefono;
+            listadoCadetes = listado;
+        }
+
+        //Metodos
         public void CrearPedido(int numero, string observacion,string nombre, string telefono, string direccion, string referenciaDireccion)
         {
             var cliente = new Cliente(nombre, telefono, direccion, referenciaDireccion);
@@ -98,6 +107,11 @@ namespace EspacioPedidos
                 }
             }
             return null;
+        }
+
+        public void GenerarInformes()
+        {
+
         }
     }
     
