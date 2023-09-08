@@ -13,7 +13,6 @@ namespace EspacioPedidos
 
         public Informe(List<Cadete> listadoCadetes){
             this.listadoCadetes = listadoCadetes;
-
         }
         public Informe(){
             listadoCadetes = new List<Cadete>();

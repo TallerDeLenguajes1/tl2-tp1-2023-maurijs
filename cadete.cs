@@ -32,7 +32,16 @@ namespace EspacioPedidos
             pedidos = new List<Pedido>();
         }
         public float JornalAlCobrar() 
-        { 
+        {
+            float monto = 0;
+            foreach (var pedido in pedidos)
+            {
+                if (pedido.Estado == Estado.Recibido)
+                {
+                    monto += pedido.Monto;
+                }
+            }
+            return monto;
         }
 
         public void CargarPedido(Pedido pedido)
