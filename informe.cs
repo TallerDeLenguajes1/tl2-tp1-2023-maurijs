@@ -43,21 +43,21 @@ namespace EspacioPedidos
             float cantidadCadetes = listadoCadetes.Count();
             return cantTotalEnvios / cantidadCadetes;
         }
-        public void InformeCadete(Cadete cadete)
+        public void MostrarInfCadete(Cadete cadete)
         {
-            Console.WriteLine("\n---------------------------------------------------\n");
+            Console.WriteLine("\n---------------------------------------------------");
             Console.WriteLine("Cadete:" + cadete.Nombre);
-            Console.WriteLine("\nCantidad de envios:" + cadete.CantEnviados());
-            Console.WriteLine("\nGanancias:" + cadete.Ganancias());
+            Console.WriteLine("Cantidad de envios:" + cadete.CantEnviados());
+            Console.WriteLine("Ganancias:" + cadete.Ganancias());
         }
-        public void InformeListadoCadetes()
+        public void MostrarInfListCadetes()
         {
             foreach (var cadete in listadoCadetes)
             {
-                InformeCadete(cadete);
+                MostrarInfCadete(cadete);
             }
         }
-        public void InformeCadeteria()
+        public void MostrarInfCadeteria()
         {
             Console.WriteLine("\n==============DATOS DE LA CADETERIA====================\n");
             Console.WriteLine("Cantidad Total de envios:" + cantTotalEnvios);
@@ -66,12 +66,12 @@ namespace EspacioPedidos
 
         }
 
-        public void InformeCompleto()
+        public void MostrarInfCompleto()
         {
             AddListadoData();
-            CalcularPromedio();
-            InformeCadeteria();
-            InformeListadoCadetes();
+            enviosPromedioPorCadete = CalcularPromedio();
+            MostrarInfCadeteria();
+            MostrarInfListCadetes();
         }
     }
 

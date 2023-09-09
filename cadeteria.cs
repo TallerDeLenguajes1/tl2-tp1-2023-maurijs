@@ -5,10 +5,12 @@ namespace EspacioPedidos
         private string nombre;
         private string telefono;
         private List<Cadete> listadoCadetes;
+        private List<Pedido> listadoPedidos;
 
         public string Nombre { get => nombre; set => nombre = value; }
         public string Telefono { get => telefono; set => telefono = value; }
         public List<Cadete> ListadoCadetes { get => listadoCadetes; set => listadoCadetes = value; }
+        public List<Pedido> ListadoPedidos { get => listadoPedidos; set => listadoPedidos = value; }
 
         //Constructores
         public Cadeteria(string nombre, string telefono)
@@ -16,19 +18,22 @@ namespace EspacioPedidos
             this.nombre = nombre;
             this.telefono = telefono;
             listadoCadetes = new List<Cadete>();
+            listadoPedidos = new List<Pedido>();
         }
         public Cadeteria(string nombre, string telefono, List<Cadete> listado)
         {
             this.nombre = nombre;
             this.telefono = telefono;
             listadoCadetes = listado;
+            listadoPedidos = new List<Pedido>();
         }
 
         //Metodos
-        public void CrearPedido(int numero, string observacion,string nombre, string telefono, string direccion, string referenciaDireccion)
+        public void CrearPedido(int numero, float monto, string observacion,string nombre, string telefono, string direccion, string referenciaDireccion)
         {
             var cliente = new Cliente(nombre, telefono, direccion, referenciaDireccion);
-            var pedido = new Pedido(numero, observacion, Estado.Aceptado, cliente);
+            var pedido = new Pedido(numero, monto, observacion, Estado.Aceptado, cliente);
+            listadoPedidos.Add(pedido);
         }
         public void AsignarPedido(Pedido pedido, Cadete cadete)
         {
@@ -37,12 +42,27 @@ namespace EspacioPedidos
                 if (listadoCadetes.Contains(cadete))
                 {
                     cadete.CargarPedido(pedido);
+                    return;
+                }
+            } 
+            Console.WriteLine("Error: No se pudo asignar el pedido");
+            return;
+        }
+        public void AsignarPedido(int NumPedido, int  IDcadete)
+        {
+            foreach (var cadete in listadoCadetes)
+            {
+                var cad = listadoCadetes[IDcadete];
+                if (cadete.Id == IDcadete)
+                {
+                    cadete.CargarPedido(GetPedidoByID(NumPedido));
+                    Console.WriteLine("Pedido " + NumPedido + " asignado a " + cadete.Nombre );
+                    return;
                 }
             }
             Console.WriteLine("Error: No se pudo asignar el pedido");
             return;
         }
-
         public void ReasignarPedido(Pedido pedido, Cadete NuevoCadete)
         {
             /*FirstOrDefault: Este método busca el primer elemento en la colección que cumple con una condición dada.*/
@@ -53,10 +73,12 @@ namespace EspacioPedidos
                 CadeteAnterior.EliminarPedido(pedido);
             }
         }
-        public void ReasignarPedido(Pedido pedido, int IdNuevoCadete)
+        public void ReasignarPedido(int NumPedido, int IdNuevoCadete)
         {
             /*FirstOrDefault: Este método busca el primer elemento en la colección que cumple con una condición dada.*/
+            var pedido = GetPedidoByID(NumPedido);
             var CadeteAnterior = listadoCadetes.FirstOrDefault(cadete => cadete.ContienePedido(pedido), null);
+            
             //Encuentro el nuevo cadete
             if (ContieneCadete(IdNuevoCadete))
             {
@@ -65,16 +87,29 @@ namespace EspacioPedidos
                 {
                     NuevoCadete.CargarPedido(pedido);
                     CadeteAnterior.EliminarPedido(pedido);
-                }     
-                Console.WriteLine("Error: El cadete ya posee ese pedido");
+                    return;
+                }  else  {
+                    Console.WriteLine("Error: El cadete ya posee ese pedido");
+                }
             }
             Console.WriteLine("Error: Id ingresado invalido");
             return;
         }
 
-        public void DarAltaPedidos(Pedido pedido) 
+        public void DarAltaPedido(int NumPedido) 
         {
+            var pedido = GetPedidoByID(NumPedido);
             pedido.Estado = Estado.Aceptado;
+        }
+        public void CancelarPedido(int NumPedido) 
+        {
+            var pedido = GetPedidoByID(NumPedido);
+            pedido.Estado = Estado.Cancelado;
+        }
+        public void PedidoEntregado(int NumPedido) 
+        {
+            var pedido = GetPedidoByID(NumPedido);
+            pedido.Estado = Estado.Recibido;
         }
 
         public bool ContieneCadete(Cadete cadete)
@@ -108,10 +143,22 @@ namespace EspacioPedidos
             }
             return null;
         }
-
-        public void GenerarInformes()
+        public Pedido GetPedidoByID(int id)
         {
+            foreach (var pedido in listadoPedidos)
+            {
+                if (pedido.Numero == id)
+                {
+                    return pedido;
+                }
+            }
+            return null;
+        }
 
+        public Informe GenerarInforme(List<Cadete> ListadoCadetes)
+        {
+            var informe = new Informe(ListadoCadetes);
+            return informe;
         }
     }
     

@@ -49,8 +49,10 @@ namespace EspacioPedidos
             if (!ContienePedido(pedido))
             {
                 pedidos.Add(pedido);
+            } else {
+                Console.WriteLine("\nError: el cadete ya tiene cargado ese pedido");
             }
-            Console.WriteLine("\nError: el cadete ya tiene cargado ese pedido");
+            return;
         }
 
         public void EliminarPedido(Pedido pedido)

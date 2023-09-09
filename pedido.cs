@@ -6,6 +6,7 @@ namespace EspacioPedidos
         Cancelado,
         Recibido
     }
+    
     public class Pedido
     {
         private int numero;
@@ -20,12 +21,13 @@ namespace EspacioPedidos
         internal Estado Estado { get => estado; set => estado = value; }
         public float Monto { get => monto; set => monto = value; }
 
-        public Pedido(int numero, string observacion, Estado estado, Cliente cliente)
+        public Pedido(int numero, float monto, string observacion, Estado estado, Cliente cliente)
         {
             this.numero = numero;
             this.observacion = observacion; 
             this.estado = estado;
             this.cliente = cliente;
+            this.monto = monto;
         }
 
         public bool HasThisNumber(int numeroPedido)
@@ -42,8 +44,5 @@ namespace EspacioPedidos
         {
             return cliente.Nombre + " - " + cliente.Telefono;
         }
-
-        
-
     }
 }
