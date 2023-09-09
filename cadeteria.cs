@@ -35,20 +35,8 @@ namespace EspacioPedidos
             var pedido = new Pedido(numero, monto, observacion, Estado.Aceptado, cliente);
             listadoPedidos.Add(pedido);
         }
-        public void AsignarPedido(Pedido pedido, Cadete cadete)
-        {
-            if (pedido.Estado == Estado.Aceptado)
-            {
-                if (listadoCadetes.Contains(cadete))
-                {
-                    cadete.CargarPedido(pedido);
-                    return;
-                }
-            } 
-            Console.WriteLine("Error: No se pudo asignar el pedido");
-            return;
-        }
-        public void AsignarPedido(int NumPedido, int  IDcadete)
+
+      public void AsignarPedido(int NumPedido, int  IDcadete)
         {
             foreach (var cadete in listadoCadetes)
             {
@@ -62,7 +50,8 @@ namespace EspacioPedidos
             }
             Console.WriteLine("Error: No se pudo asignar el pedido");
             return;
-        }
+        } 
+
         public void ReasignarPedido(Pedido pedido, Cadete NuevoCadete)
         {
             /*FirstOrDefault: Este método busca el primer elemento en la colección que cumple con una condición dada.*/
@@ -112,14 +101,6 @@ namespace EspacioPedidos
             pedido.Estado = Estado.Recibido;
         }
 
-        public bool ContieneCadete(Cadete cadete)
-        {
-            if (listadoCadetes.Contains(cadete))
-            {
-                return true;
-            }
-            return false;
-        }
         public bool ContieneCadete(int id)
         {
             foreach (var cadete in listadoCadetes)

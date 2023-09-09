@@ -38,16 +38,21 @@ namespace EspacioPedidos
             }
         }
 
-        private float CalcularPromedio()
+        private void CalcularPromedio()
         {
-            float cantidadCadetes = listadoCadetes.Count();
-            return cantTotalEnvios / cantidadCadetes;
+            float cantidadCadetes = listadoCadetes.Count;
+            enviosPromedioPorCadete = cantTotalEnvios / cantidadCadetes;
+            montoTotalGanado = 0;
+            foreach (var cadete in listadoCadetes)
+            {
+                montoTotalGanado += cadete.Ganancias();
+            }
         }
         public void MostrarInfCadete(Cadete cadete)
         {
             Console.WriteLine("\n---------------------------------------------------");
             Console.WriteLine("Cadete:" + cadete.Nombre);
-            Console.WriteLine("Cantidad de envios:" + cadete.CantEnviados());
+            Console.WriteLine("Cantidad de envios completados:" + cadete.CantEnviados());
             Console.WriteLine("Ganancias:" + cadete.Ganancias());
         }
         public void MostrarInfListCadetes()
@@ -60,16 +65,17 @@ namespace EspacioPedidos
         public void MostrarInfCadeteria()
         {
             Console.WriteLine("\n==============DATOS DE LA CADETERIA====================\n");
+            Console.WriteLine("Cantidad de cadetes:" + listadoCadetes.Count);
             Console.WriteLine("Cantidad Total de envios:" + cantTotalEnvios);
             Console.WriteLine("Monto total ganado:" + montoTotalGanado);
-            Console.WriteLine("Envios promedio por cadete:" + CalcularPromedio());
+            Console.WriteLine("Envios promedio por cadete:" + enviosPromedioPorCadete);
 
         }
 
         public void MostrarInfCompleto()
         {
             AddListadoData();
-            enviosPromedioPorCadete = CalcularPromedio();
+            CalcularPromedio();
             MostrarInfCadeteria();
             MostrarInfListCadetes();
         }
