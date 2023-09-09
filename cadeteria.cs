@@ -76,6 +76,7 @@ namespace EspacioPedidos
                 {
                     NuevoCadete.CargarPedido(pedido);
                     CadeteAnterior.EliminarPedido(pedido);
+                    Console.WriteLine("Pedido " + NumPedido + " reasignado a " + NuevoCadete.Nombre );
                     return;
                 }  else  {
                     Console.WriteLine("Error: El cadete ya posee ese pedido");

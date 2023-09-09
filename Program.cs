@@ -23,6 +23,8 @@ public class Program
         {
             cadeteria.AsignarPedido(i, random.Next(listadoCadetes.Count()));  
         }
+        //Reasigno el pedido 3 al cadete 2
+        cadeteria.ReasignarPedido(3,2);
         cadeteria.PedidoEntregado(0);
         cadeteria.PedidoEntregado(1);
         cadeteria.PedidoEntregado(2);
