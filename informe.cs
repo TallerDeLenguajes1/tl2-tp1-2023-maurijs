@@ -21,7 +21,7 @@ namespace EspacioPedidos
         private void AddCadeteData(int IdCadete)
         {
             cantTotalEnvios += cadeteria.EnviosRealizados(IdCadete);
-            montoTotalGanado = cadeteria.MontoTotalCadete(IdCadete);
+            montoTotalGanado += cadeteria.MontoTotalCadete(IdCadete);
             return;
         }
         private void AddListadoData()
@@ -44,6 +44,7 @@ namespace EspacioPedidos
             Console.WriteLine("Cadete:" + cadeteria.GetCadeteByID(IdCadete).Nombre);
             Console.WriteLine("Cantidad de envios completados:" + cadeteria.EnviosRealizados(IdCadete));
             Console.WriteLine("Ganancias:" + cadeteria.MontoTotalCadete(IdCadete));
+            Console.WriteLine("Jornal:" + cadeteria.JornalACobrarCadete(IdCadete));
         }
         public void MostrarInfListCadetes()
         {

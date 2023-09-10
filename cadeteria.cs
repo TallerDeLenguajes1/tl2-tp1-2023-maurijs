@@ -41,9 +41,9 @@ namespace EspacioPedidos
             var pedido = GetPedidoByID(NumPedido);
             var cadete = GetCadeteByID(IDcadete);
             pedido.Cadete = cadete;
-            if (cadete == null)
+            if (cadete == null || pedido == null)
             {
-                Console.WriteLine("Error: el cadete no existe");
+                Console.WriteLine("Error: el cadete no existe o el pedido no existe");
             }
             return;
         } 
@@ -125,12 +125,6 @@ namespace EspacioPedidos
             return null;
         }
 
-        public Informe GenerarInforme(Cadeteria cadeteria)
-        {
-            var informe = new Informe(cadeteria);
-            return informe;
-        }
-
         public float JornalACobrarCadete(int IdCadete)
         {
             float Ganancias = Calcular(IdCadete, 1);
@@ -159,7 +153,7 @@ namespace EspacioPedidos
                 {
                     if (pedido.GetCadeteID() == IdCadete)
                     {
-                        if (pedido.Estado == Estado.Aceptado)
+                        if (pedido.Estado == Estado.Recibido)
                         {
                             switch (tipo)
                             {
@@ -184,11 +178,3 @@ namespace EspacioPedidos
     }
     
 }
-/*2) Refactorización del Sistema para una Cadeteria
-El cliente presentó como nuevo requisito que los pedidos puedan no estar asignados a
-algún cadete. Esto evidenció una falla en el diseño de clases del sistema, por lo que se decidió
-realizar una refactorización del mismo.
-Para poder cumplir con dicho requisito se propuso las siguientes modificaciones:
-i) Implemente las modificaciones sugeridas más todas aquellas que crea necesarias
-para cumplir con los requerimientos.
-ii) Modifique la interfaz de usuario para cumplir con los nuevos requerimientos*/
