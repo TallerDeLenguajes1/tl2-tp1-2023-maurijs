@@ -13,11 +13,9 @@ namespace EspacioPedidos
         public float EnviosPromedioPorCadete { get => enviosPromedioPorCadete; set => enviosPromedioPorCadete = value; }
         public int CantTotalEnvios { get => cantTotalEnvios; set => cantTotalEnvios = value; }
         public float MontoTotalGanado { get => montoTotalGanado; set => montoTotalGanado = value; }
-
         public Informe(Cadeteria cadeteria) {
             this.cadeteria = cadeteria;
         }
-
         private void AddCadeteData(int IdCadete)
         {
             cantTotalEnvios += cadeteria.EnviosRealizados(IdCadete);

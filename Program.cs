@@ -54,7 +54,6 @@ public class Program
             cadeteria.PedidoEntregado(5);
             Console.WriteLine("Pedido 5 entregado");
         
-
             var informe = new Informe(cadeteria);
             informe.MostrarInfCompleto();
         } 

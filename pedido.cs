@@ -40,7 +40,6 @@ namespace EspacioPedidos
         {   
             if (numero == numeroPedido){ return true; };
             return false;
-
         }
         public string VerDireccionCliente()
         {

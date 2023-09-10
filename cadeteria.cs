@@ -141,7 +141,6 @@ namespace EspacioPedidos
             int contador = (int)Calcular(IdCadete, 3);
             return contador;
         }
-
         // Funcion que calcula: 1-ganancias individuales (jornalAcobrar), 2-Ganancias de todos los pedidos del cadete, 
         // 3- Cantidad de envios realizados
         private float Calcular(int IdCadete, int tipo)
