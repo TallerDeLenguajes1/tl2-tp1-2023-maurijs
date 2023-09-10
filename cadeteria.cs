@@ -36,35 +36,21 @@ namespace EspacioPedidos
             listadoPedidos.Add(pedido);
         }
 
-      public void AsignarPedido(int NumPedido, int  IDcadete)
+      public void AsignarCadeteAPedido(int NumPedido, int  IDcadete)
         {
-            foreach (var cadete in listadoCadetes)
+            var pedido = GetPedidoByID(NumPedido);
+            var cadete = GetCadeteByID(IDcadete);
+            pedido.Cadete = cadete;
+            if (cadete == null)
             {
-                var cad = listadoCadetes[IDcadete];
-                if (cadete.Id == IDcadete)
-                {
-                    cadete.CargarPedido(GetPedidoByID(NumPedido));
-                    Console.WriteLine("Pedido " + NumPedido + " asignado a " + cadete.Nombre );
-                    return;
-                }
+                Console.WriteLine("Error: el cadete no existe");
             }
-            Console.WriteLine("Error: No se pudo asignar el pedido");
             return;
         } 
 
-        public void ReasignarPedido(Pedido pedido, Cadete NuevoCadete)
+        /*public void ReasignarPedido(int NumPedido, int IdNuevoCadete)
         {
-            /*FirstOrDefault: Este método busca el primer elemento en la colección que cumple con una condición dada.*/
-            var CadeteAnterior = this.ListadoCadetes.FirstOrDefault(cadete => cadete.ContienePedido(pedido), null);
-            if (!NuevoCadete.ContienePedido(pedido))
-            {
-                NuevoCadete.CargarPedido(pedido);
-                CadeteAnterior.EliminarPedido(pedido);
-            }
-        }
-        public void ReasignarPedido(int NumPedido, int IdNuevoCadete)
-        {
-            /*FirstOrDefault: Este método busca el primer elemento en la colección que cumple con una condición dada.*/
+            FirstOrDefault: Este método busca el primer elemento en la colección que cumple con una condición dada.
             var pedido = GetPedidoByID(NumPedido);
             var CadeteAnterior = listadoCadetes.FirstOrDefault(cadete => cadete.ContienePedido(pedido), null);
             
@@ -84,7 +70,7 @@ namespace EspacioPedidos
             }
             Console.WriteLine("Error: Id ingresado invalido");
             return;
-        }
+        }*/
 
         public void DarAltaPedido(int NumPedido) 
         {
@@ -167,11 +153,6 @@ El cliente presentó como nuevo requisito que los pedidos puedan no estar asigna
 algún cadete. Esto evidenció una falla en el diseño de clases del sistema, por lo que se decidió
 realizar una refactorización del mismo.
 Para poder cumplir con dicho requisito se propuso las siguientes modificaciones:
-● Agregar una referencia a Cadete dentro de la clase Pedido
-● Agregar ListadoPedidos en la clase Cadeteria que contenga todo los pedidos que
-se vayan generando.
-● Agregar el método JornalACobrar en la clase Cadeteria que recibe como
-parámetro el id del cadete y devuelve el monto a cobrar para dicho cadete
 ● Agregar el método AsignarCadeteAPedido en la clase Cadeteria que recibe como
 parámetro el id del cadete y el id del Pedido
 i) Implemente las modificaciones sugeridas más todas aquellas que crea necesarias
