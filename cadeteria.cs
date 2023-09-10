@@ -36,31 +36,30 @@ namespace EspacioPedidos
             listadoPedidos.Add(pedido);
         }
 
-      public void AsignarCadeteAPedido(int NumPedido, int  IDcadete)
+        public bool AsignarCadeteAPedido(int NumPedido, int  IDcadete)
         {
             var pedido = GetPedidoByID(NumPedido);
             var cadete = GetCadeteByID(IDcadete);
             pedido.Cadete = cadete;
             if (cadete == null || pedido == null)
             {
-                Console.WriteLine("Error: el cadete no existe o el pedido no existe");
+                return false;
             }
-            return;
+            return true;
         } 
 
-        public void ReasignarPedido(int NumPedido, int IdNuevoCadete)
+        public bool ReasignarPedido(int NumPedido, int IdNuevoCadete)
         {
             if (ContieneCadete(IdNuevoCadete))
             {
                 if (ContienePedido(NumPedido))
                 {
                     AsignarCadeteAPedido(NumPedido, IdNuevoCadete);
-                    return;
+                    return true;
                 }
-                Console.WriteLine("Error: Id del pedido invalido");
+            
             }
-            Console.WriteLine("Error: Id del cadete invalido");
-            return;
+            return false;
         }
 
         public void DarAltaPedido(int NumPedido) 
@@ -169,9 +168,7 @@ namespace EspacioPedidos
                         }
                     }
                 }
-            } else {
-                Console.WriteLine("Error: el id del cadete no existe");
-            }
+            } 
             return cantidad;
         }
     }
