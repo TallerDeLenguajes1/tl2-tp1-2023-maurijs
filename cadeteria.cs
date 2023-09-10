@@ -145,9 +145,19 @@ namespace EspacioPedidos
     }
     
 }
-
-/*cadeteria  --- Metodo CrearPedido --- recibe los datos del pedido mas los datos del cadete y el cliente(lo obtiene de CargarPedido del cliente)
-Cadeteria  --- Metodo ReasignarPedido ---
-Cadeteria  --- Metodo EliminarPedido ---
-Cadeteria  --- Metodo GenerarInformes ---
-Cadeteria  --- Metodo CambiarEstadoDelPedido ---*/
+/*2) Refactorización del Sistema para una Cadeteria
+El cliente presentó como nuevo requisito que los pedidos puedan no estar asignados a
+algún cadete. Esto evidenció una falla en el diseño de clases del sistema, por lo que se decidió
+realizar una refactorización del mismo.
+Para poder cumplir con dicho requisito se propuso las siguientes modificaciones:
+● Quitar el ListadoPedidos de la clase Cadete
+● Agregar una referencia a Cadete dentro de la clase Pedido
+● Agregar ListadoPedidos en la clase Cadeteria que contenga todo los pedidos que
+se vayan generando.
+● Agregar el método JornalACobrar en la clase Cadeteria que recibe como
+parámetro el id del cadete y devuelve el monto a cobrar para dicho cadete
+● Agregar el método AsignarCadeteAPedido en la clase Cadeteria que recibe como
+parámetro el id del cadete y el id del Pedido
+i) Implemente las modificaciones sugeridas más todas aquellas que crea necesarias
+para cumplir con los requerimientos.
+ii) Modifique la interfaz de usuario para cumplir con los nuevos requerimientos*/
