@@ -21,7 +21,7 @@ public class Program
         }
         for (int i = 0; i < 6; i++)
         {
-            cadeteria.AsignarPedido(i, random.Next(listadoCadetes.Count()));  
+            cadeteria.AsignarCadeteAPedido(i, random.Next(listadoCadetes.Count));  
         }
         //Reasigno el pedido 3 al cadete 2
         cadeteria.ReasignarPedido(3,2);

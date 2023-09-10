@@ -32,6 +32,10 @@ namespace EspacioPedidos
             this.monto = monto;
         }
 
+        public int GetCadeteID()
+        {
+            return cadete.Id;
+        }
         public bool HasThisNumber(int numeroPedido)
         {   
             if (numero == numeroPedido){ return true; };

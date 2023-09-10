@@ -48,29 +48,20 @@ namespace EspacioPedidos
             return;
         } 
 
-        /*public void ReasignarPedido(int NumPedido, int IdNuevoCadete)
+        public void ReasignarPedido(int NumPedido, int IdNuevoCadete)
         {
-            FirstOrDefault: Este método busca el primer elemento en la colección que cumple con una condición dada.
-            var pedido = GetPedidoByID(NumPedido);
-            var CadeteAnterior = listadoCadetes.FirstOrDefault(cadete => cadete.ContienePedido(pedido), null);
-            
-            //Encuentro el nuevo cadete
             if (ContieneCadete(IdNuevoCadete))
             {
-                var NuevoCadete = GetCadeteByID(IdNuevoCadete);
-                if (!NuevoCadete.ContienePedido(pedido))
+                if (ContienePedido(NumPedido))
                 {
-                    NuevoCadete.CargarPedido(pedido);
-                    CadeteAnterior.EliminarPedido(pedido);
-                    Console.WriteLine("Pedido " + NumPedido + " reasignado a " + NuevoCadete.Nombre );
+                    AsignarCadeteAPedido(NumPedido, IdNuevoCadete);
                     return;
-                }  else  {
-                    Console.WriteLine("Error: El cadete ya posee ese pedido");
                 }
+                Console.WriteLine("Error: Id del pedido invalido");
             }
-            Console.WriteLine("Error: Id ingresado invalido");
+            Console.WriteLine("Error: Id del cadete invalido");
             return;
-        }*/
+        }
 
         public void DarAltaPedido(int NumPedido) 
         {
@@ -88,6 +79,17 @@ namespace EspacioPedidos
             pedido.Estado = Estado.Recibido;
         }
 
+        public bool ContienePedido(int NumPedido)
+        {
+            foreach (var pedido in listadoPedidos)
+                {
+                    if (pedido.Numero == NumPedido)
+                    {
+                        return true;
+                    }
+                }
+            return false;
+        }
         public bool ContieneCadete(int id)
         {
             foreach (var cadete in listadoCadetes)
@@ -132,17 +134,17 @@ namespace EspacioPedidos
         public float JornalACobrar(int IdCadete)
         {
             float Ganancias = 0;
-            foreach (var pedido in listadoPedidos)
+            if (ContieneCadete(IdCadete))
             {
-                if (pedido.Cadete.Id == IdCadete)
+                foreach (var pedido in listadoPedidos)
                 {
-                    Ganancias += pedido.Monto;
+                    if (pedido.GetCadeteID() == IdCadete)
+                    {
+                        Ganancias += pedido.Monto;
+                    }
                 }
             }
-            if (Ganancias == 0)
-            {
-                Console.WriteLine("El id del cadete no existe o no entrego ningun o pedido");
-            }
+            Console.WriteLine("Error: el id del cadete no existe");
             return Ganancias;
         }
     }
@@ -153,8 +155,6 @@ El cliente presentó como nuevo requisito que los pedidos puedan no estar asigna
 algún cadete. Esto evidenció una falla en el diseño de clases del sistema, por lo que se decidió
 realizar una refactorización del mismo.
 Para poder cumplir con dicho requisito se propuso las siguientes modificaciones:
-● Agregar el método AsignarCadeteAPedido en la clase Cadeteria que recibe como
-parámetro el id del cadete y el id del Pedido
 i) Implemente las modificaciones sugeridas más todas aquellas que crea necesarias
 para cumplir con los requerimientos.
 ii) Modifique la interfaz de usuario para cumplir con los nuevos requerimientos*/
