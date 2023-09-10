@@ -20,53 +20,51 @@ namespace EspacioPedidos
 
         private void AddCadeteData(int IdCadete)
         {
-            cantTotalEnvios += cadete.CantEnviados();
-            montoTotalGanado = cadeteria.;
+            cantTotalEnvios += cadeteria.EnviosRealizados(IdCadete);
+            montoTotalGanado = cadeteria.MontoTotalCadete(IdCadete);
+            return;
         }
         private void AddListadoData()
         {
-            foreach (var cadete in listadoCadetes)
+            foreach (var cadete in cadeteria.ListadoCadetes)
             {
-                AddCadeteData(cadete);
+                AddCadeteData(cadete.Id);
             }
         }
 
         private void CalcularPromedio()
         {
-            float cantidadCadetes = listadoCadetes.Count;
+            float cantidadCadetes = cadeteria.ListadoCadetes.Count;
             enviosPromedioPorCadete = cantTotalEnvios / cantidadCadetes;
-            montoTotalGanado = 0;
-            foreach (var cadete in listadoCadetes)
-            {
-                montoTotalGanado += cadete.Ganancias();
-            }
+            
         }
-        public void MostrarInfCadete(Cadete cadete)
+        public void MostrarInfCadete(int IdCadete)
         {
             Console.WriteLine("\n---------------------------------------------------");
-            Console.WriteLine("Cadete:" + cadete.Nombre);
-            Console.WriteLine("Cantidad de envios completados:" + cadete.CantEnviados());
-            Console.WriteLine("Ganancias:" + cadete.Ganancias());
+            Console.WriteLine("Cadete:" + cadeteria.GetCadeteByID(IdCadete).Nombre);
+            Console.WriteLine("Cantidad de envios completados:" + cadeteria.EnviosRealizados(IdCadete));
+            Console.WriteLine("Ganancias:" + cadeteria.MontoTotalCadete(IdCadete));
         }
         public void MostrarInfListCadetes()
         {
-            foreach (var cadete in listadoCadetes)
+            foreach (var cadete in cadeteria.ListadoCadetes)
             {
-                MostrarInfCadete(cadete);
+                MostrarInfCadete(cadete.Id);
             }
         }
         public void MostrarInfCadeteria()
         {
             Console.WriteLine("\n==============DATOS DE LA CADETERIA====================\n");
-            Console.WriteLine("Cantidad de cadetes:" + listadoCadetes.Count);
+            Console.WriteLine("Cantidad de cadetes:" + cadeteria.ListadoCadetes.Count);
             Console.WriteLine("Cantidad Total de envios:" + cantTotalEnvios);
             Console.WriteLine("Monto total ganado:" + montoTotalGanado);
             Console.WriteLine("Envios promedio por cadete:" + enviosPromedioPorCadete);
-
         }
 
         public void MostrarInfCompleto()
         {
+            cantTotalEnvios = 0;
+            montoTotalGanado = 0;
             AddListadoData();
             CalcularPromedio();
             MostrarInfCadeteria();
