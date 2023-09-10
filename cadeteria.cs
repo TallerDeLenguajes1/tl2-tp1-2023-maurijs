@@ -142,6 +142,23 @@ namespace EspacioPedidos
             var informe = new Informe(ListadoCadetes);
             return informe;
         }
+
+        public float JornalACobrar(int IdCadete)
+        {
+            float Ganancias = 0;
+            foreach (var pedido in listadoPedidos)
+            {
+                if (pedido.Cadete.Id == IdCadete)
+                {
+                    Ganancias += pedido.Monto;
+                }
+            }
+            if (Ganancias == 0)
+            {
+                Console.WriteLine("El id del cadete no existe o no entrego ningun o pedido");
+            }
+            return Ganancias;
+        }
     }
     
 }
@@ -150,7 +167,6 @@ El cliente presentó como nuevo requisito que los pedidos puedan no estar asigna
 algún cadete. Esto evidenció una falla en el diseño de clases del sistema, por lo que se decidió
 realizar una refactorización del mismo.
 Para poder cumplir con dicho requisito se propuso las siguientes modificaciones:
-● Quitar el ListadoPedidos de la clase Cadete
 ● Agregar una referencia a Cadete dentro de la clase Pedido
 ● Agregar ListadoPedidos en la clase Cadeteria que contenga todo los pedidos que
 se vayan generando.

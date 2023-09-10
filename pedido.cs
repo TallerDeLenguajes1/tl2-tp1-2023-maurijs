@@ -13,6 +13,7 @@ namespace EspacioPedidos
         private string observacion;
         private Estado estado;
         private Cliente cliente;
+        private Cadete cadete;
         private float monto;
 
         public int Numero { get => numero; set => numero = value; }
@@ -20,6 +21,7 @@ namespace EspacioPedidos
         public Cliente Cliente { get => cliente; set => cliente = value; }
         internal Estado Estado { get => estado; set => estado = value; }
         public float Monto { get => monto; set => monto = value; }
+        public Cadete Cadete { get => cadete; set => cadete = value; }
 
         public Pedido(int numero, float monto, string observacion, Estado estado, Cliente cliente)
         {
