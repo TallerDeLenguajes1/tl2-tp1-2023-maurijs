@@ -6,29 +6,22 @@ namespace EspacioPedidos
 {
 
     public class Informe {
-        private List<Cadete> listadoCadetes;
+        private Cadeteria cadeteria;
         private float enviosPromedioPorCadete;
         private int cantTotalEnvios;
         private float montoTotalGanado;
-        public List<Cadete> ListadoCadetes { get => listadoCadetes; set => listadoCadetes = value; }
         public float EnviosPromedioPorCadete { get => enviosPromedioPorCadete; set => enviosPromedioPorCadete = value; }
         public int CantTotalEnvios { get => cantTotalEnvios; set => cantTotalEnvios = value; }
         public float MontoTotalGanado { get => montoTotalGanado; set => montoTotalGanado = value; }
 
-        public Informe(List<Cadete> listadoCadetes) {
-            this.listadoCadetes = listadoCadetes;
-        }
-        public Informe() {
-            listadoCadetes = new List<Cadete>();
-            enviosPromedioPorCadete = 0;
-            cantTotalEnvios = 0;
-            montoTotalGanado = 0;
+        public Informe(Cadeteria cadeteria) {
+            this.cadeteria = cadeteria;
         }
 
-        private void AddCadeteData(Cadete cadete)
+        private void AddCadeteData(int IdCadete)
         {
             cantTotalEnvios += cadete.CantEnviados();
-            montoTotalGanado = +cadete.Ganancias();
+            montoTotalGanado = cadeteria.;
         }
         private void AddListadoData()
         {

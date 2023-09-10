@@ -125,27 +125,61 @@ namespace EspacioPedidos
             return null;
         }
 
-        public Informe GenerarInforme(List<Cadete> ListadoCadetes)
+        public Informe GenerarInforme(Cadeteria cadeteria)
         {
-            var informe = new Informe(ListadoCadetes);
+            var informe = new Informe(cadeteria);
             return informe;
         }
 
-        public float JornalACobrar(int IdCadete)
+        public float JornalACobrarCadete(int IdCadete)
         {
-            float Ganancias = 0;
+            float Ganancias = Calcular(IdCadete, 1);
+            return Ganancias;
+        }
+        public float MontoTotalCadete(int IdCadete)
+        {
+            float Ganancias = Calcular(IdCadete, 2);
+        
+            return Ganancias;
+        }
+        public int EnviosRealizados(int IdCadete)
+        {
+            int contador = (int)Calcular(IdCadete, 3);
+            return contador;
+        }
+
+        // Funcion que calcula: 1-ganancias individuales (jornalAcobrar), 2-Ganancias de todos los pedidos del cadete, 
+        // 3- Cantidad de envios realizados
+        private float Calcular(int IdCadete, int tipo)
+        {
+            float cantidad = 0;
             if (ContieneCadete(IdCadete))
             {
                 foreach (var pedido in listadoPedidos)
                 {
                     if (pedido.GetCadeteID() == IdCadete)
                     {
-                        Ganancias += pedido.Monto;
+                        if (pedido.Estado == Estado.Aceptado)
+                        {
+                            switch (tipo)
+                            {
+                                case 1:
+                                    cantidad += 500;
+                                    break;
+                                case 2:
+                                    cantidad += pedido.Monto;
+                                    break;
+                                case 3:
+                                    cantidad++;
+                                    break;
+                            }
+                        }
                     }
                 }
+            } else {
+                Console.WriteLine("Error: el id del cadete no existe");
             }
-            Console.WriteLine("Error: el id del cadete no existe");
-            return Ganancias;
+            return cantidad;
         }
     }
     
